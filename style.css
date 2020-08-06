@@ -1,5 +1,6 @@
 body {
   background-color: black;
+ color: white;
 }
 
 img {
@@ -10,4 +11,6 @@ img {
 
 .wrapper {
 margin: 0 auto;
+text-align: center;
+
 }
