@@ -6,5 +6,15 @@ Website only for those brave enough to enter the trolling den
 # Trollish:
 Goddag eller eftermiddag gode individ välkommen till trollhållan
 
-# UWU:
+#
+░▄▀▄▀▀▀▀▄▀▄░░░░░░░░░
+░█░░░░░░░░▀▄░░░░░░▄░
+█░░▀░░▀░░░░░▀▄▄░░█░█
+█░▄░█▀░▄░░░░░░░▀▀░░█
+█░░▀▀▀▀░░░░░░░░░░░░█
+█░░░░░░░░░░░░░░░░░░█
+█░░░░░░░░░░░░░░░░░░█
+░█░░▄▄░░▄▄▄▄░░▄▄░░█░
+░█░▄▀█░▄▀░░█░▄▀█░▄▀░
+░░▀░░░▀░░░░░▀░░░▀░░░
 ようこそバカーきゅんそして死ねくださいおねがい！！！（づ＾▿＾づ）
