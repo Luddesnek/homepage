@@ -1,10 +1,10 @@
 # https://luddesnus.github.io
 
-# Englandish:
+# England:
 Website only for those brave enough to enter the trolling den
 
-# Meatballish:
+# Trollish:
 Goddag eller eftermiddag gode individ välkommen till trollhållan
 
-# Japanbananish:
+# UWU:
 ようこそバカーきゅんそして死ねくださいおねがい！！！（づ＾▿＾づ）
