@@ -1,4 +1,4 @@
-# https://luddesnus.github.io
+# https://luddesnek.github.io
 
 # England:
 Website only for those brave enough to enter the trolling den
