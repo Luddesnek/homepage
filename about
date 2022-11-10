@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>e̸͚̻̣̬͍̟̤͉̤̭̞͚͍̩̜̠͉̭̪͇̍̅̇̉̀̍̔́̓́̈̓̐͒̍̒́͒̆̑̂̊̽̓̒͌͘͜ͅx̷̛̪͚̹͈̣̗̼̗͖̣̖͚̤͔̝̏̂̄̽̒̒̄̌͊̔̈̂̆͒̽̌̃̃́͂̌̊͊͐͜͜͝p̷̡̡̧̛͚͓̳̣̦̰͔̮̭͍̫̺̻̱͌̃́̍̍̔́́̈̈́̉͌̀̆͗̉̃͂̌̃̽̏͆͑̉͒̆̏͑̕͘͝͠l̶̨̧̡̧̢̢̨͚̭̠̼̬͙͖͎̬̰̩͕̖̮͓̭͔̘̪̫̩̖͙̜̣̫̠̹̩͎̫̝͇̪̓̇̌͋̇̌̀̋͛̇̏̍͑̾̀̿̈́͘̕̚̚̚͜ͅo̶͔̠̥͕͕̮̣̣̦͓̲̭̮̣̮̮͖̗̫̰͍̙͙̱̦̩̤̞̻̯̟̽̂̓̍ͅḭ̵̢̡̧̛͚͖͇̠͔̣͙̣͚̩̦͔̮͈̟̦̳̰͙̝͈͈̱̦̻̬̱̬͎̻͖̥̳̾͂̿͐̍̂͋͒̿͆̈́͒͑̉͂̃̋̈̏̄͐̂͐̅͆̋̓͊̿̚͘̕ͅͅͅt̸̨̧̳̰͕̝̻͔̻̖̩̗̱̮͚̩̰̹̤͉̘̯͙̯̹̬͋̈́͝ ̸̢̧͕͎̜̖̪̙̺͙̟̭̗̳̠̤̰̮͕͖̭̝̗͊͑̏̄̾͘̕͘͝ͅt̸̢̲̫̤͈̰̝̞̣̪̻̤̠͇͎̘̜͚̙̯̰͖̫͚̥̅͑͂̈̋̑͑̓̆̊̓̃̑̎ͅi̴̢̡̢̨̧̛̳̰͔̼̖̙̠̮͖͖͎͇̰̘̲̯̳̟̘̣͕̲̜̞͕̤̻̤͖̤͌̉́̄̍͋́̆̾̎̿́̀̂̌̄̒̓̋̆͒̏͆̇̓͛̆͂͘͘̚̚͜͠ͅm̸̢̛̛̼̬̹̙̱̼̘̮̉̉̊̀͋̓̽̇̾̐̆͛̀̄̍̀̓̓̿̔̾̑͛̎̈́̄̕̕͘e̶̛͖̝̦̤̝͚̅̃̈́̌̂͑͆̋͛̂̾̀̈̓͋͗̈́͊͊̑̊̋̈́̐̉́́͑͗́̽̀̊̆̀͛̏͂̆̇̽̓̍̚͜͠͠͝͠</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <h1 class="title">the lud lair</h1>
+      <a href="index">Home</a>
+      <a href="about">About</a>
+      <a href="links">Links</a>
+    </nav>
+    <hr>
+    <section class="section">
+      <div class="container">
+	<h2>What is this site</h2>
+	A website I made just to have a website, or basically
+	just a self interview or you could call it a blog or
+	something.
+	<h2>Why???</h2>
+	Why not?
+	<h2>Who are you?</h2>
+	Just some dreamy individual that wants to express
+	themselves but at the same time doesn't want to
+	disclose any private information.
+	<h2>Isn't that contradictory..?</h2>
+	Maybe ´_`
+	<h2>What will you post here</h2>
+	My ideas, plans and accomplishements
+	<h2></h2>
+	<h2></h2>
+      </div>
+    </section>
+    </hr>
+  </body>
+</html>
+
+
+
+
+
