@@ -2,4 +2,4 @@
 
 Click the link and you will get a cookie
 
-luddesnek.github.io
+[cookie](luddesnek.github.io)
