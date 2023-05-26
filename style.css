@@ -17,7 +17,9 @@ h1{
 }
 
 hr{
-    color: green;
+    border: none;
+    height: 1px;
+    background-color: green;
 }
 
 .code-wrapper{
@@ -80,7 +82,7 @@ a, .a1
 .a1{
     float:left;
     margin-left: 14%;
-    font-size: 130%;
+    font-size: 100%;
 }
 
 .a3{    
