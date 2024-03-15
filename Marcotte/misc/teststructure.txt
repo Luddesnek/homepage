@@ -1,0 +1,9 @@
+header>a>h1+image>img
+main>section>article*4>picture>source*4+img^p+p
+footer>p+li>ul*3
+
+header>a>h1+image>img
+main>section>article*6>picture>source*4+img^section>h2+h3+p
+footer>p+li>ul*2>a
+
+footer>li>ul*3>a
