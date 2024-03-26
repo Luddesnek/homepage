@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/quiz.js" defer></script>
     <script src="js/resize-textarea.js" defer></script>
@@ -11,9 +11,9 @@
 <body>
     <header>
         <ul class="header-box">
-            <li><a href="create.html">Create Quiz</a></li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="quiz.html">Take Quiz</a></li>
+            <li><a href="create">Create Quiz</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="quiz">Take Quiz</a></li>
         </ul>
     </header>
     <main>
@@ -22,6 +22,7 @@
     <button id="loadQuizBtn">Load Quiz</button>
     <div id="quizContent"></div>
     <button onclick="submitQuiz()">Submit</button>
+    <div id="quizResult"></div>
     </main>
 </body>
 </html>
