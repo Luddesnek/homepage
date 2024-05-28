@@ -1,14 +1,25 @@
+// main.js
+
 import * as options from "./settings.js";
 
+
+// Audio variables
 let audioContext;
 let audioBuffer;
 let audioSource;
 let analyser;
+
 let isPlaying = false;
 let startTime = 0;
 let currentOffset = 0;
+
 let animationId;
 
+/**
+ * A function that initalizes and starts to visualize the audio.
+ * - Connects the analyser to the audio context.
+ * - Draws a visualizer
+ */
 function visualizeAudio() {
     if (!analyser) {
         analyser = audioContext.createAnalyser();
@@ -17,6 +28,10 @@ function visualizeAudio() {
     }
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
+    /**
+     * Draws the visualizer
+     * @returns - bollean (stops the draw)
+     */
     function draw() {
         if (!isPlaying) return; // Stop drawing when not playing
 
@@ -29,15 +44,23 @@ function visualizeAudio() {
 
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-        if (options.visOptions.mode.value === 'bar') {
-            drawBars(ctx, dataArray, WIDTH, HEIGHT);
-        } else if (options.visOptions.mode.value === 'spectrogram') {
-            drawSpectrogram(ctx, dataArray, WIDTH, HEIGHT);
-        }
+        // if (options.visOptions.mode.value === 'bar') {
+        //     drawBars(ctx, dataArray, WIDTH, HEIGHT);
+        // } else if (options.visOptions.mode.value === 'spectrogram') {
+        //     drawSpectrogram(ctx, dataArray, WIDTH, HEIGHT);
+        // }
 
+        drawBars(ctx, dataArray, WIDTH, HEIGHT);
         animationId = requestAnimationFrame(draw);
     }
 
+    /**
+     * - Draws bars for the visualizer
+     * @param {*} ctx  - Context of the canvas
+     * @param {*} dataArray - Array of the amount of bars
+     * @param {*} WIDTH - Width of the bars
+     * @param {*} HEIGHT - Height of the bars
+     */
     function drawBars(ctx, dataArray, WIDTH, HEIGHT) {
         ctx.fillStyle = `rgb(${options.visOptions.Red.value}, ${options.visOptions.Green.value}, ${options.visOptions.Blue.value})`;
         const barWidth = options.visOptions.barWidth.value;
@@ -53,6 +76,14 @@ function visualizeAudio() {
     }
 
     let spectrogramData = [];
+
+    /**
+     * 
+     * @param {*} ctx - Context of the canvas
+     * @param {*} dataArray 
+     * @param {*} WIDTH
+     * @param {*} HEIGHT 
+     */
     function drawSpectrogram(ctx, dataArray, WIDTH, HEIGHT) {
         spectrogramData.push([...dataArray]);
         if (spectrogramData.length > HEIGHT) {
@@ -76,12 +107,18 @@ function visualizeAudio() {
     draw();
 }
 
-function updateCanvasSize() {
+/**
+ * Updates the canvas
+ */
+export function updateCanvasSize() {
     const canvas = document.getElementById("myCanvas");
     canvas.width = options.visOptions.canvasWidth.value;
     canvas.height = options.visOptions.canvasHeight.value;
 }
 
+/**
+ * Generates the canvas tag
+ */
 function generateCanvas() {
     const visualizationBox = document.getElementById("visualization");
     const canvas = document.createElement("canvas");
@@ -90,6 +127,11 @@ function generateCanvas() {
     updateCanvasSize();
 }
 
+/**
+ * Profiles for saved/loaded settings
+ * @param {*} profiles 
+ * @returns HTMLDivElement
+ */
 function generateProfileButtons(profiles) {
     const profilesContainer = document.createElement("div");
 
@@ -103,10 +145,18 @@ function generateProfileButtons(profiles) {
     return profilesContainer;
 }
 
+/**
+ * Load profile for settings
+ * @param {*} profile - Profiles for loading presents and saves settings.
+ */
 function applyProfile(profile) {
     options.updateSettingsProfile(profile.settings);
 }
 
+/**
+ * @param {*} parent - Container containing the file upload element
+ * @param {*} id - id of the file upload element
+ */
 function createFileUploadElement(parent, id) {
     let input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -114,49 +164,102 @@ function createFileUploadElement(parent, id) {
     parent.appendChild(input);
 }
 
+function saveSettings() {
+    localStorage.setItem('visSettings', JSON.stringify(options.visOptions));
+}
+
+function loadSettings() {
+    const savedSettings = localStorage.getItem('visSettings');
+    if (savedSettings) {
+        const parsedSettings = JSON.parse(savedSettings);
+        for (const key in parsedSettings) {
+            if (options.visOptions[key]) {
+                options.visOptions[key].value = parsedSettings[key].value;
+            }
+        }
+    }
+}
+
 function createSettingsControls() {
     const settingsContainer = document.getElementById("settingsContainer");
-    for (const [key, value] of Object.entries(options.visOptions)) {
-        const label = document.createElement("label");
-        label.textContent = key;
-        const input = document.createElement("input");
+    const div = document.createElement("div");
+    settingsContainer.appendChild(div);
 
-        if (key === 'mode') {
-            input.type = "select";
-            input.id = key;
+    loadSettings();
+
+    for (const [key, setting] of Object.entries(options.visOptions)) {
+        const settingsElement = document.createElement("li");
+        settingsElement.classList.add("box");
+        const label = document.createElement("label");
+        label.textContent = key + ": ";
+        settingsElement.appendChild(label);
+
+        if (typeof setting.value === 'number') {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = setting.value;
+
+            const slider = document.createElement("input");
+            slider.type = "range";
+            slider.value = setting.value;
+            slider.min = setting.min;
+            slider.max = setting.max;
+            slider.step = setting.step;
+
+            slider.oninput = function () {
+                input.value = slider.value;
+                options.visOptions[key].value = parseFloat(slider.value);
+                if (key === 'canvasWidth' || key === 'canvasHeight') {
+                    updateCanvasSize();
+                }
+                if (analyser && (key === "fftSize" || key === "smoothingTimeConstant")) {
+                    analyser[key] = options.visOptions[key].value;
+                }
+                saveSettings();
+            };
+
+            input.onchange = function () {
+                slider.value = input.value;
+                options.visOptions[key].value = parseFloat(input.value);
+                if (key === 'canvasWidth' || key === 'canvasHeight') {
+                    updateCanvasSize();
+                }
+                if (analyser && (key === "fftSize" || key === "smoothingTimeConstant")) {
+                    analyser[key] = options.visOptions[key].value;
+                }
+                saveSettings();
+            };
+
+            settingsElement.appendChild(input);
+            settingsElement.appendChild(slider);
+        } else if (Array.isArray(setting.options)) {
             const select = document.createElement("select");
-            value.options.forEach(option => {
+            setting.options.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;
                 optionElement.text = option;
                 select.appendChild(optionElement);
             });
-            select.value = value.value;
-            select.addEventListener("change", (event) => {
-                options.visOptions[key].value = event.target.value;
-            });
-            settingsContainer.appendChild(label);
-            settingsContainer.appendChild(select);
-            continue;
+            select.value = setting.value;
+            select.onchange = function () {
+                options.visOptions[key].value = select.value;
+                saveSettings();
+            };
+            settingsElement.appendChild(select);
         } else {
-            input.type = "range";
-            input.min = value.min;
-            input.max = value.max;
-            input.step = value.step;
-            input.value = value.value;
-            input.id = key;
-            input.addEventListener("input", (event) => {
-                options.visOptions[key].value = Number(event.target.value);
-                if (analyser && (key === "fftSize" || key === "smoothingTimeConstant")) {
-                    analyser[key] = options.visOptions[key].value;
-                }
-            });
-            settingsContainer.appendChild(label);
-            settingsContainer.appendChild(input);
+            const staticValue = document.createElement("span");
+            staticValue.textContent = setting.toString();
+            settingsElement.appendChild(staticValue);
         }
+
+        settingsContainer.appendChild(settingsElement);
     }
 }
 
+
+/**
+ * Creates the whole structure of the elements that are not fully static.
+ */
 function createStructure() {
     generateCanvas();
 
@@ -189,13 +292,20 @@ function createStructure() {
     pauseButton.id = "pauseButton";
     container.appendChild(pauseButton);
 
+    const infoContainer = document.createElement("div")
+    infoContainer.classList.add("box");
+    container.appendChild(infoContainer);
+
     const durationLabel = document.createElement("span");
     durationLabel.id = "durationLabel";
-    container.appendChild(durationLabel);
+    infoContainer.appendChild(durationLabel);
+
+    const lineBreak = document.createElement("br");
+    infoContainer.appendChild(lineBreak);
 
     const currentTimeLabel = document.createElement("span");
     currentTimeLabel.id = "currentTimeLabel";
-    container.appendChild(currentTimeLabel);
+    infoContainer.appendChild(currentTimeLabel);
 
     const seekSlider = document.createElement("input");
     seekSlider.type = "range";
@@ -207,24 +317,56 @@ function createStructure() {
 
     const settingsContainer = document.createElement("div");
     settingsContainer.id = "settingsContainer";
+    settingsContainer.classList.add("box");
     rightMenu.appendChild(settingsContainer);
     createSettingsControls();
+
 }
 
 createStructure();
 
+/**
+ * - Updates the UI on resize
+ * - Updates the canvas if a change in the UI is made
+ */
+// window.onresize = function () {
+//     const isMobile = window.matchMedia("(max-width: 768px)").matches;
+//     const newWidth = isMobile ? "100%" : "15%";
+//     document.querySelectorAll('.menu').forEach(menu => {
+//         if (menu.style.width !== '0') {
+//             menu.style.width = newWidth;
+//         }
+//     });
+
+//     updateCanvasSize();
+// };
+
+const MENU_OPEN_WIDTH = '29%';
+const MENU_CLOSE_WIDTH = '0';
+
 window.onresize = function () {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const newWidth = isMobile ? "100%" : "15%";
-    document.querySelectorAll('.menu').forEach(menu => {
-        if (menu.style.width !== '0') {
-            menu.style.width = newWidth;
+    const rightMenu = document.getElementById('rightMenu');
+
+    if (isMobile) {
+        if (rightMenu.style.width !== MENU_CLOSE_WIDTH && rightMenu.style.width !== '') {
+            rightMenu.style.width = '100%';
         }
-    });
+    } else {
+        if (rightMenu.style.width === '100%') {
+            rightMenu.style.width = MENU_OPEN_WIDTH;
+        }
+    }
+
+    updateCanvasSize();
 };
+
 
 let selectedFile = null;
 
+/**
+ * Loads the audio file. And triggers events for listening and analysis.
+ */
 document.getElementById('audioFile').addEventListener('change', function (event) {
     selectedFile = event.target.files[0];
     if (!selectedFile) {
@@ -251,6 +393,9 @@ document.getElementById('audioFile').addEventListener('change', function (event)
     reader.readAsArrayBuffer(selectedFile);
 });
 
+/**
+ * Plays the audio
+ */
 document.getElementById('playButton').addEventListener('click', function () {
     if (audioBuffer && audioContext) {
         if (!isPlaying) {
@@ -277,6 +422,10 @@ document.getElementById('seekSlider').addEventListener('input', function (event)
     }
 });
 
+/**
+ * 
+ * @param {*} offset 
+ */
 function startAudio(offset = 0) {
     if (isPlaying && audioSource) {
         audioSource.stop();
@@ -294,6 +443,11 @@ function startAudio(offset = 0) {
     visualizeAudio();
 }
 
+/**
+ * - A function to pause the audio source
+ * - It makes sure to cancel both the animation
+ * - Calculates the difference between times.
+ */
 function pauseAudio() {
     if (audioSource) {
         audioSource.stop();
@@ -303,6 +457,9 @@ function pauseAudio() {
     cancelAnimationFrame(animationId);
 }
 
+/**
+ * Looping function to control and update second length of song.
+ */
 setInterval(function () {
     if (audioSource && isPlaying) {
         const currentTime = audioContext.currentTime - startTime;
