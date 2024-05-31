@@ -341,27 +341,6 @@ createStructure();
 //     updateCanvasSize();
 // };
 
-const MENU_OPEN_WIDTH = '29%';
-const MENU_CLOSE_WIDTH = '0';
-
-window.onresize = function () {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const rightMenu = document.getElementById('rightMenu');
-
-    if (isMobile) {
-        if (rightMenu.style.width !== MENU_CLOSE_WIDTH && rightMenu.style.width !== '') {
-            rightMenu.style.width = '100%';
-        }
-    } else {
-        if (rightMenu.style.width === '100%') {
-            rightMenu.style.width = MENU_OPEN_WIDTH;
-        }
-    }
-
-    updateCanvasSize();
-};
-
-
 let selectedFile = null;
 
 /**
